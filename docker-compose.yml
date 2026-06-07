@@ -1,0 +1,22 @@
+services:
+  bind:
+    build: ./bind
+    container_name: lucos_dns_secondary_bind
+    ports:
+      - "53:53"
+      - "53:53/udp"
+    image: lucas42/lucos_dns_secondary_bind:${VERSION:-latest}
+    restart: always
+    environment:
+      - TSIG_SECRET
+    volumes:
+      - "secondaryzones:/etc/bind/secondary-zones"
+    healthcheck:
+      test: ["CMD-SHELL", "dig @127.0.0.1 localhost +short > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  secondaryzones:

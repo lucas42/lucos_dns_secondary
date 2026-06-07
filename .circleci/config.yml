@@ -1,0 +1,18 @@
+version: 2.1
+orbs:
+  lucos: lucos/deploy@0
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - lucos/build:
+          platform: "linux/arm64"
+          serial-group: << pipeline.project.slug >>/build/<< pipeline.git.branch >>
+      - lucos/deploy-xwing:
+          serial-group: deploy-xwing
+          requires:
+            - lucos/build
+          filters:
+            branches:
+              only:
+                - main
