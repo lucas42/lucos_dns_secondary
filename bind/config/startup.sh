@@ -8,13 +8,13 @@ if [ -z "${TSIG_SECRET}" ]; then
     exit 1
 fi
 
-# Ensure slave-zones directory exists and is writable by the named runtime user.
+# Ensure secondary-zones directory exists and is writable by the named runtime user.
 # This directory is a volume mount — BIND writes received zone files here so the
 # secondary can serve last-known-good zones across a restart even if the primary
 # is temporarily unreachable.  Startup runs as root; named drops privileges after
 # binding to port 53, so the directory must be owned by named before that happens.
-mkdir -p /etc/bind/slave-zones
-chown named:named /etc/bind/slave-zones
+mkdir -p /etc/bind/secondary-zones
+chown named:named /etc/bind/secondary-zones
 
 # Write the TSIG key file from the TSIG_SECRET environment variable.
 # The secret is kept out of the image; it's injected at runtime via lucos_creds.

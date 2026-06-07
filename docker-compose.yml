@@ -10,7 +10,7 @@ services:
     environment:
       - TSIG_SECRET
     volumes:
-      - "slavezones:/etc/bind/slave-zones"
+      - "secondaryzones:/etc/bind/secondary-zones"
     healthcheck:
       test: ["CMD-SHELL", "dig @127.0.0.1 localhost +short > /dev/null"]
       interval: 10s
@@ -19,4 +19,4 @@ services:
       start_period: 15s
 
 volumes:
-  slavezones:
+  secondaryzones:

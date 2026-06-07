@@ -5,30 +5,30 @@ server 178.32.218.44 {
 
 zone "l42.eu" {
     type secondary;
-    file "/etc/bind/slave-zones/l42.eu";
+    file "/etc/bind/secondary-zones/l42.eu";
     primaries { 178.32.218.44; };
 };
 
 zone "s.l42.eu" {
     type secondary;
-    file "/etc/bind/slave-zones/s.l42.eu";
+    file "/etc/bind/secondary-zones/s.l42.eu";
     primaries { 178.32.218.44; };
 };
 
 zone "lukeblaney.co.uk" {
     type secondary;
-    file "/etc/bind/slave-zones/lukeblaney.co.uk";
+    file "/etc/bind/secondary-zones/lukeblaney.co.uk";
     primaries { 178.32.218.44; };
 };
 
 zone "rowanblaney.co.uk" {
     type secondary;
-    file "/etc/bind/slave-zones/rowanblaney.co.uk";
+    file "/etc/bind/secondary-zones/rowanblaney.co.uk";
     primaries { 178.32.218.44; };
 };
 
 zone "tfluke.uk" {
     type secondary;
-    file "/etc/bind/slave-zones/tfluke.uk";
+    file "/etc/bind/secondary-zones/tfluke.uk";
     primaries { 178.32.218.44; };
 };
