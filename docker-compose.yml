@@ -18,6 +18,22 @@ services:
       retries: 3
       start_period: 15s
 
+  check:
+    build: ./check
+    container_name: lucos_dns_secondary_check
+    image: lucas42/lucos_dns_secondary_check:${VERSION:-latest}
+    restart: always
+    environment:
+      - SCHEDULE_TRACKER_ENDPOINT
+    depends_on:
+      - bind
+    healthcheck:
+      test: ["CMD-SHELL", "ps | grep -q '[s]upercronic'"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
 volumes:
   secondaryzones:
 
