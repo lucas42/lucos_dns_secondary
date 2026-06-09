@@ -1,0 +1,6 @@
+# Applies to the repo-root build context (the `check` service). Keeps .git and
+# other non-build files out of the context now that it's the whole repo.
+.git
+**/.git
+.gitignore
+README.md

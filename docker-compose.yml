@@ -19,7 +19,11 @@ services:
       start_period: 15s
 
   check:
-    build: ./check
+    # Context is the repo root (not ./check) so the image can bake in
+    # bind/config/named.conf.local, the single source for the served-zone list.
+    build:
+      context: .
+      dockerfile: check/Dockerfile
     container_name: lucos_dns_secondary_check
     image: lucas42/lucos_dns_secondary_check:${VERSION:-latest}
     restart: always
