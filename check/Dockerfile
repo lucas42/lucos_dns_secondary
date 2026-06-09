@@ -24,9 +24,14 @@ RUN apk --update add bind-tools curl
 ARG VERSION
 ENV VERSION=$VERSION
 
+# Build context is the repo root (see docker-compose.yml) so this image can copy
+# bind/config/named.conf.local — the single source of truth for the served-zone
+# list — from the same file the bind image uses. check.sh derives its zone list
+# from this at runtime, eliminating the hardcoded-list drift.
 WORKDIR /app
-COPY check.sh .
-COPY crontab /crontab
+COPY check/check.sh .
+COPY check/crontab /crontab
+COPY bind/config/named.conf.local ./named.conf.local
 RUN chmod +x check.sh
 
 CMD ["supercronic", "/crontab"]
