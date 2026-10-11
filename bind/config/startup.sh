@@ -11,8 +11,8 @@ fi
 # Ensure secondary-zones directory exists and is writable by the named runtime user.
 # This directory is a volume mount — BIND writes received zone files here so the
 # secondary can serve last-known-good zones across a restart even if the primary
-# is temporarily unreachable.  Startup runs as root; named drops privileges after
-# binding to port 53, so the directory must be owned by named before that happens.
+# is temporarily unreachable.  Startup runs as root and named is started with
+# `-u named`, so the directory must be owned by named before that happens.
 mkdir -p /etc/bind/secondary-zones
 chown named:named /etc/bind/secondary-zones
 
@@ -28,4 +28,4 @@ EOF
 chmod 640 /etc/bind/tsig.key
 chown root:named /etc/bind/tsig.key
 
-exec /usr/sbin/named -c /etc/bind/named.conf -g
+exec /usr/sbin/named -u named -c /etc/bind/named.conf -g
